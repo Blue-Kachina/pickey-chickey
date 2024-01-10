@@ -1,5 +1,8 @@
 # README
 
+## Initial Setup
+You'll need to ```cp config_example.json config.json``` and then populate the variables with the appropriate API key values
+
 ## Broadcasting Command Updates
 ```node deploy-commands.js``` will announce command updates to deployed bots
 
@@ -15,3 +18,4 @@ This codebase however is not like that.  Since I'm not listening for HTTP POSTs,
 It also means that I don't seem to need ngrok either.
 
 You can set up PHPStorm to Debug from index.js, and it will actually break on your breakpoints
+^^ Alternatively, `npm run dev` is now set up to run/debug as well.
