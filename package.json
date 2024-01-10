@@ -1,7 +1,7 @@
 {
   "name": "pickey-chickey",
   "version": "1.0.0",
-  "description": "This library will become a Discord bot aimed at assisting with creating teams for Monday Night Combat",
+  "description": "A Discord bot application aimed at assisting with the creation of teams for Monday Night Combat scrims.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
