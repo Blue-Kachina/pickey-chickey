@@ -1,0 +1,31 @@
+{
+  "name": "pickey-chickey",
+  "version": "1.0.0",
+  "description": "This library will become a Discord bot aimed at assisting with creating teams for Monday Night Combat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blue-Kachina/pickey-chickey.git"
+  },
+  "keywords": [
+    "mnc",
+    "scrim",
+    "teams",
+    "draft"
+  ],
+  "author": "BlueKachina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blue-Kachina/pickey-chickey/issues"
+  },
+  "homepage": "https://github.com/Blue-Kachina/pickey-chickey#readme",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

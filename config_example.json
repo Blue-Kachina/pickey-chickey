@@ -1,5 +1,6 @@
 {
   "token": "your-token-goes-here",
-  "app_id": "your-app-id-goes-here",
-  "public_key": "your-public-key-goes-here"
+  "clientId": "your-app-id-goes-here",
+  "publicKey": "your-public-key-goes-here",
+  "guildId": "your-guild-id-goes-here"
 }
