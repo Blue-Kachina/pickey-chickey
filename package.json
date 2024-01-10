@@ -4,7 +4,8 @@
   "description": "A Discord bot application aimed at assisting with the creation of teams for Monday Night Combat scrims.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "prod": "node index.js"
   },
   "repository": {
     "type": "git",
