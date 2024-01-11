@@ -16,7 +16,7 @@ module.exports = {
         let this_channel = interaction.client.channels.cache.get(interaction.channelId)
         let author = interaction.client.users.cache.get(interaction.user?.id)
 
-        let eventname = interaction.options?.data.find(option => option.name === 'eventname')?.value ?? 'Event Chickin'
+        let eventname = interaction.options?.data.find(option => option.name === 'eventname')?.value ?? 'Event Chick-in'
 
         await this_channel.threads.create({
             name: eventname,
@@ -28,7 +28,7 @@ module.exports = {
 
             const chickin_button = new ButtonBuilder()
                 .setCustomId('chickin')
-                .setLabel('Chick me in')
+                .setLabel('Chick-me-in')
                 .setStyle(ButtonStyle.Secondary);
 
             const action_row = new ActionRowBuilder()
@@ -38,7 +38,7 @@ module.exports = {
                 .setColor(0x0099FF)
                 .setTitle("Who Wants Bacon?")
                 // .setURL('https://discord.js.org/')
-                .setDescription("Hiyo Everybody.  It's time to make sure that we know who's ready/available to play.  Please chickin by clucking the button below")
+                .setDescription("Hiyo Everybody.  It's time to make sure that we know who's ready to play.  Please chick-in by clucking the button below")
                 // .setThumbnail(embed_details.thumbnail)
                 .setAuthor({name:author?.username})
                 .setImage('attachment://logo_mnc.png')
@@ -55,7 +55,7 @@ module.exports = {
             })
                 .then(response => {
                     // An example of editing an embed that was previously posted
-                    embed.setDescription("Description of that same embed can now be updated like this")
+                    // embed.setDescription("Description of that same embed can now be updated like this")
                     // response.edit({embeds:[embed]})
 
                     // ToDo: record this data in the DB so that we'll be able to use it in order to relate reactions etc...
@@ -72,7 +72,7 @@ module.exports = {
                 })
         })
         // await interaction.reply('Pong!');
-        await interaction.reply({content:"Chickin Process Has Begun.  Please see details in the thread!", ephemeral: false});
+        await interaction.reply({content:"Chick-in Process Has Begun.  Please see details in the thread!", ephemeral: false});
 
 
     },
