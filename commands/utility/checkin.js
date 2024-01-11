@@ -70,9 +70,10 @@ module.exports = {
                     }
                     console.log(data)
                 })
-
         })
         // await interaction.reply('Pong!');
         await interaction.reply({content:"Chickin Process Has Begun.  Please see details in the thread!", ephemeral: false});
+
+
     },
 };
