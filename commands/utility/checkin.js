@@ -1,16 +1,25 @@
-const { SlashCommandBuilder, EmbedBuilder, Attachment, AttachmentBuilder, ActionRowBuilder, ActionRow, ButtonBuilder, ButtonStyle} = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, Attachment, AttachmentBuilder, ActionRowBuilder, ActionRow, ButtonBuilder, ButtonStyle,
+    SlashCommandStringOption
+} = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('checkin')
-        .setDescription('Starts a new thread to begin the checkin process'),
+        .setDescription('Starts a new thread to begin the checkin process')
+        .addStringOption(option =>
+            option.setName('eventname')
+                .setDescription('A name we can refer to this event by')
+        )
+    ,
     async execute(interaction) {
 
         let this_channel = interaction.client.channels.cache.get(interaction.channelId)
         let author = interaction.client.users.cache.get(interaction.user?.id)
 
+        let eventname = interaction.options?.data.find(option => option.name === 'eventname')?.value ?? 'Event Chickin'
+
         await this_channel.threads.create({
-            name: "Event Chickin",
+            name: eventname,
             reason: "To Organize"
         }).then(threadChannel => {
 
@@ -64,6 +73,6 @@ module.exports = {
 
         })
         // await interaction.reply('Pong!');
-        await interaction.reply("Chickin Process Has Begun.  Please see details in the thread!");
+        await interaction.reply({content:"Chickin Process Has Begun.  Please see details in the thread!", ephemeral: false});
     },
 };
