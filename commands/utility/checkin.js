@@ -1,5 +1,14 @@
-const { SlashCommandBuilder, EmbedBuilder, Attachment, AttachmentBuilder, ActionRowBuilder, ActionRow, ButtonBuilder, ButtonStyle,
-    SlashCommandStringOption
+const {
+    SlashCommandBuilder,
+    EmbedBuilder,
+    Attachment,
+    AttachmentBuilder,
+    ActionRowBuilder,
+    ActionRow,
+    ButtonBuilder,
+    ButtonStyle,
+    SlashCommandStringOption,
+    ComponentType
 } = require('discord.js');
 
 module.exports = {
@@ -16,7 +25,7 @@ module.exports = {
         let this_channel = interaction.client.channels.cache.get(interaction.channelId)
         let author = interaction.client.users.cache.get(interaction.user?.id)
 
-        let eventname = interaction.options?.data.find(option => option.name === 'eventname')?.value ?? 'Event Chick-in'
+        let eventname = interaction.options.getString('eventname') ?? 'Event Chick-in'
 
         await this_channel.threads.create({
             name: eventname,
@@ -29,7 +38,7 @@ module.exports = {
             const chickin_button = new ButtonBuilder()
                 .setCustomId('chickin')
                 .setLabel('Chick-me-in')
-                .setStyle(ButtonStyle.Secondary);
+                .setStyle(ButtonStyle.Primary);
 
             const action_row = new ActionRowBuilder()
                 .addComponents(chickin_button);
@@ -51,12 +60,13 @@ module.exports = {
             threadChannel.send({
                 embeds: [embed],
                 components: [action_row],
-                files: [attachment]
+                files: [attachment],
             })
                 .then(response => {
                     // An example of editing an embed that was previously posted
                     // embed.setDescription("Description of that same embed can now be updated like this")
                     // response.edit({embeds:[embed]})
+                    response.pin()
 
                     // ToDo: record this data in the DB so that we'll be able to use it in order to relate reactions etc...
                     let data = {
@@ -68,7 +78,18 @@ module.exports = {
                         created_at: response.createdTimestamp,
                         name: response.embeds[0].title
                     }
-                    console.log(data)
+
+                    const filter = (i) => i.user.id === response.author.id
+                    const collector = response.createMessageComponentCollector({
+                        componentType: ComponentType.Button,
+                        filter
+                    });
+
+                    collector.on('collect', (interaction) => {
+                        console.log(interaction.customId)
+                    })
+
+                    // console.log(data)
                 })
         })
         // await interaction.reply('Pong!');
