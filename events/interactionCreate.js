@@ -1,4 +1,4 @@
-const { Events } = require('discord.js');
+const { Events, EmbedBuilder} = require('discord.js');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -37,8 +37,16 @@ async function handleChatInputCommands(interaction) {
 async function handleButtonPresses(interaction) {
     const button_pressed = interaction.customId
     const username = interaction.user.globalName ?? interaction.user.username
+
+    const receivedEmbed = interaction.message.embeds[0];
+    let fields = interaction.message.embeds[0].fields
+    fields.push({ name: 'Checked-in', value: username })
+    const exampleEmbed = EmbedBuilder.from(receivedEmbed).setFields(fields)
+    // console.log(interaction)
+
+    interaction.message.edit({embeds:[exampleEmbed]})
     interaction.reply({
-        content: `${username} has checked in.`,
-        ephemeral: false
+        content: `You checked-in as ${username}.`,
+        ephemeral: true
     })
 }

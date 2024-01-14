@@ -51,11 +51,11 @@ module.exports = {
                 // .setURL('https://discord.js.org/')
                 .setDescription("Hiyo Everybody.  It's time to make sure that we know who's ready to play.  Please chick-in by clucking the button below")
                 // .setThumbnail(embed_details.thumbnail)
-                .setAuthor({name:author?.username})
+                .setAuthor({name:(author.globalName ?? author.username)})
                 .setImage('attachment://logo_mnc.png')
                 .setTimestamp()
                 .setFields([
-                    { name: 'Player 1', value: author?.username },
+                    { name: 'Checked-in', value: (author.globalName ?? author.username) },
                 ])
                 .setFooter({text: 'Why are chickens funny?'})
 
