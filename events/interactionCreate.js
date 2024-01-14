@@ -36,17 +36,30 @@ async function handleChatInputCommands(interaction) {
 
 async function handleButtonPresses(interaction) {
     const button_pressed = interaction.customId
-    const username = interaction.user.globalName ?? interaction.user.username
 
-    const receivedEmbed = interaction.message.embeds[0];
-    let fields = interaction.message.embeds[0].fields
-    fields.push({ name: 'Checked-in', value: username })
-    const exampleEmbed = EmbedBuilder.from(receivedEmbed).setFields(fields)
-    // console.log(interaction)
+    if (button_pressed === 'chickin') {
+        const username = interaction.user.globalName ?? interaction.user.username
 
-    interaction.message.edit({embeds:[exampleEmbed]})
-    interaction.reply({
-        content: `You checked-in as ${username}.`,
-        ephemeral: true
-    })
+        const receivedEmbed = interaction.message.embeds[0];
+        let fields = interaction.message.embeds[0].fields
+
+        if (!fields.find(field => field.value === username)) {
+            fields.push({name: 'Checked-in', value: username})
+            const revised_embed = EmbedBuilder.from(receivedEmbed).setFields(fields)
+
+            interaction.message.edit({embeds: [revised_embed]})
+            interaction.reply({
+                content: `You checked-in as ${username}.`,
+                ephemeral: true
+            })
+        } else {
+            const revised_embed = EmbedBuilder.from(receivedEmbed).setFields(fields.filter(field => field.value !== username))
+
+            interaction.message.edit({embeds: [revised_embed]})
+            interaction.reply({
+                content: `You checked-out.`,
+                ephemeral: true
+            })
+        }
+    }
 }
