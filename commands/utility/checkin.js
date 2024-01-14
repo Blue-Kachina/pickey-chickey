@@ -11,6 +11,8 @@ const {
     ComponentType
 } = require('discord.js');
 
+const checkin_components = require('../../components/checkin_components')
+
 let eventname = undefined
 
 module.exports = {
@@ -34,33 +36,13 @@ module.exports = {
             reason: "To Organize"
         }).then(threadChannel => {
 
-            const attachment = new AttachmentBuilder('./assets/logo_mnc.png')
-                .setName('logo_mnc.png');
-
-            const chickin_button = new ButtonBuilder()
-                .setCustomId('chickin')
-                .setLabel('Toggle Your Checkin Status')
-                .setStyle(ButtonStyle.Primary);
+            const attachment = checkin_components.mnc_logo
 
             const action_row = new ActionRowBuilder()
-                .addComponents(chickin_button);
-
-            const embed = new EmbedBuilder()
-                .setColor(0x0099FF)
-                .setTitle("Who Wants Bacon?")
-                // .setURL('https://discord.js.org/')
-                .setDescription("Hiyo Everybody.  It's time to make sure that we know who's ready to play.  Please chick-in by clucking the button below")
-                // .setThumbnail(embed_details.thumbnail)
-                .setAuthor({name:(author.globalName ?? author.username)})
-                .setImage('attachment://logo_mnc.png')
-                .setTimestamp()
-                .setFields([
-                    { name: 'Checked-in', value: (author.globalName ?? author.username) },
-                ])
-                .setFooter({text: 'Why are chickens funny?'})
+                .addComponents(checkin_components.chickin_button);
 
             threadChannel.send({
-                embeds: [embed],
+                embeds: [checkin_components.chickin_thread_embed(author)],
                 components: [action_row],
                 files: [attachment],
             })
