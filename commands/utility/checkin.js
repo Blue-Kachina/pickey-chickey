@@ -11,6 +11,8 @@ const {
     ComponentType
 } = require('discord.js');
 
+let eventname = undefined
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('checkin')
@@ -25,7 +27,7 @@ module.exports = {
         let this_channel = interaction.client.channels.cache.get(interaction.channelId)
         let author = interaction.client.users.cache.get(interaction.user?.id)
 
-        let eventname = interaction.options.getString('eventname') ?? 'Event Chick-in'
+        eventname = interaction.options.getString('eventname') ?? 'Event Chick-in'
 
         await this_channel.threads.create({
             name: eventname,
@@ -70,13 +72,13 @@ module.exports = {
 
                     // ToDo: record this data in the DB so that we'll be able to use it in order to relate reactions etc...
                     let data = {
-                        message_id: response.id,
-                        channel_id: this_channel.id,
-                        guild_id: response.guildId,
-                        thread_id: response.channelId,
-                        author_id: author.id,
+                        message_id: Number(response.id),
+                        channel_id: Number(this_channel.id),
+                        guild_id:   Number(response.guildId),
+                        thread_id:  Number(response.channelId),
+                        author_id:  Number(author.id),
                         created_at: response.createdTimestamp,
-                        name: response.embeds[0].title
+                        name:       eventname, // response.embeds[0].title
                     }
 
                     const filter = (i) => i.user.id === response.author.id
@@ -89,7 +91,6 @@ module.exports = {
                         console.log(interaction.customId)
                     })
 
-                    // console.log(data)
                 })
         })
         // await interaction.reply('Pong!');

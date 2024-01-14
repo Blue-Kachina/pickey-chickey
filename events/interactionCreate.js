@@ -36,7 +36,7 @@ async function handleChatInputCommands(interaction) {
 
 async function handleButtonPresses(interaction) {
     const button_pressed = interaction.customId
-    const username = interaction.user.username
+    const username = interaction.user.globalName ?? interaction.user.username
     interaction.reply({
         content: `${username} has checked in.`,
         ephemeral: false
