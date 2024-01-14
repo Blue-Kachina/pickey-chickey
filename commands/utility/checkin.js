@@ -39,7 +39,7 @@ module.exports = {
 
             const chickin_button = new ButtonBuilder()
                 .setCustomId('chickin')
-                .setLabel('Chick-me-in')
+                .setLabel('Toggle Your Checkin Status')
                 .setStyle(ButtonStyle.Primary);
 
             const action_row = new ActionRowBuilder()
