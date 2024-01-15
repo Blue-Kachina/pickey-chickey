@@ -21,7 +21,9 @@ module.exports = {
             fields.push({name: username, value: new_field_value})
         }
 
-        const revised_embed = EmbedBuilder.from(receivedEmbed).setFields(fields).setTitle(`Chickins (${fields.length})`)
+        let person_people = fields.length === 1 ? 'person' : 'people'
+        let has_have = fields.length === 1 ? 'has' : 'have'
+        const revised_embed = EmbedBuilder.from(receivedEmbed).setFields(fields).setDescription(`${fields.length} ${person_people} ${has_have} checked-in.`)
         checked_in_users_message.edit({embeds: [revised_embed]})
 
         interaction.reply({
