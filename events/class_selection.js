@@ -7,9 +7,30 @@ const common = require("../helpers/common.js");
 module.exports = {
     class_selection: async function(interaction) {
 
-        let original_message = await common.original_message(interaction)
-        let original_class_selection = await common.original_class_selection(interaction)
-        console.log(interaction.values)
+        let checked_in_users_message = await common.checked_in_users_message(interaction)
+
+        const receivedEmbed = checked_in_users_message.embeds[0]
+        let fields = checked_in_users_message.embeds[0].fields
+
+        const username = common.username(interaction)
+        let new_field_value = interaction.values.join(', ')
+        let field_match = fields.find(field => field.name === username)
+        if (field_match) {
+            field_match.value = new_field_value
+        } else {
+            fields.push({name: username, value: new_field_value})
+        }
+
+        const revised_embed = EmbedBuilder.from(receivedEmbed).setFields(fields).setTitle(`Chickins (${fields.length})`)
+        checked_in_users_message.edit({embeds: [revised_embed]})
+
+        interaction.reply({
+            content: `Your class selections have been updated.`,
+            ephemeral: true,
+        })
+
+
+        // console.log(interaction.values)
 
 
         // const receivedEmbed = interaction.message.embeds[0];

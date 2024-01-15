@@ -12,6 +12,7 @@ const {
 } = require('discord.js');
 
 const checkin_components = require('../../components/checkin_components')
+const common = require("../../helpers/common");
 
 let eventname = undefined
 
@@ -37,20 +38,20 @@ module.exports = {
         }).then(threadChannel => {
 
             const attachment = checkin_components.mnc_logo
-
-            const action_row = new ActionRowBuilder()
-                .addComponents(checkin_components.chickin_button);
+            //
+            // const action_row = new ActionRowBuilder()
+            //     .addComponents(checkin_components.chickin_button);
 
             threadChannel.send({
-                embeds: [checkin_components.chickin_thread_embed(author)],
-                components: [action_row],
+                embeds: [checkin_components.intro_embed(author)],
+                // components: [action_row],
                 files: [attachment],
             })
                 .then(response => {
                     // An example of editing an embed that was previously posted
                     // embed.setDescription("Description of that same embed can now be updated like this")
                     // response.edit({embeds:[embed]})
-                    response.pin()
+                    // response.pin()
 
                     // ToDo: record this data in the DB so that we'll be able to use it in order to relate reactions etc...
                     let data = {
@@ -63,15 +64,31 @@ module.exports = {
                         name:       eventname, // response.embeds[0].title
                     }
 
-                    const filter = (i) => i.user.id === response.author.id
-                    const collector = response.createMessageComponentCollector({
-                        componentType: ComponentType.Button,
-                        filter
-                    });
+                    // const filter = (i) => i.user.id === response.author.id
+                    // const collector = response.createMessageComponentCollector({
+                    //     componentType: ComponentType.Button,
+                    //     filter
+                    // });
+                    //
+                    // collector.on('collect', (interaction) => {
+                    //     console.log(interaction.customId)
+                    // })
 
-                    collector.on('collect', (interaction) => {
-                        console.log(interaction.customId)
+                    // Let the user select which classes they would like to play as
+                    const row = new ActionRowBuilder()
+                        .addComponents(checkin_components.class_selection_options);
+                    let threadchannel = common.channel(response)
+                    threadchannel.send({
+                        content: `Please select the pros you want to play as (in priority sequence).`,
+                        components: [row],
                     })
+                        .then(response => {
+                            // response.pin()
+                            // Show a new panel for displaying who has already checked-in
+                            threadChannel.send({
+                                embeds: [checkin_components.checked_in_users_embed()],
+                            })
+                        })
 
                 })
         })

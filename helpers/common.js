@@ -22,10 +22,10 @@ module.exports = {
         return EmbedBuilder.from(receivedEmbed)
     },
 
-    original_class_selection: async function(interaction) {
+    checked_in_users_message: async function(interaction) {
         let user_id = interaction.user
-        let messages = await interaction.channel.messages.fetchPinned()
-        let found_message = messages?.find(message => message.author.id === user_id)
+        let messages = await interaction.channel.messages.fetch()
+        let found_message = messages.find(message => message.embeds.filter(embed => embed.title="Chickins"))
 
         if (!!found_message) {
             return found_message

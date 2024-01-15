@@ -12,33 +12,31 @@ module.exports = {
         .setLabel('Toggle Your Checkin Status')
         .setStyle(ButtonStyle.Primary),
 
-    chickin_thread_embed: function (author){
+    intro_embed: function (author){
         return new EmbedBuilder()
             .setColor(0x0099FF)
             .setTitle("Who Wants Bacon?")
-            .setDescription("Hiyo Everybody.  It's time to make sure that we know who's ready to play.  Please chick-in by clucking the button below")
+            .setDescription("Hiyo Everybody.  It's time to make sure that we know who's ready to play.  Let us know your pro/class preferences so that we can begin.")
             .setAuthor({name: (author.globalName ?? author.username)})
             .setImage('attachment://logo_mnc.png')
             .setTimestamp()
-            .setFields([
-                {name: 'Checked-in', value: (author.globalName ?? author.username)},
-            ])
+            // .setFields([
+            //     {name: 'Checked-in', value: (author.globalName ?? author.username)},
+            // ])
             .setFooter({text: 'Why are chickens funny?'})
     },
 
-    class_selection_embed: function (author){
-        let username = author.globalName ?? author.username
+    checked_in_users_embed: function (){
         return new EmbedBuilder()
             .setColor(0x0099FF)
-            .setTitle(`Class Selection`)
-            .setDescription("Input Pending...")
-            .setAuthor({name: username})
+            .setTitle(`Chickins`)
+            .setDescription("People who have already checked-in will be listed below")
             .setTimestamp()
     },
 
     class_selection_options: new StringSelectMenuBuilder()
         .setCustomId('class_selection')
-        .setPlaceholder("Choose which classes you're willing to play as")
+        .setPlaceholder("Choose Pros Here")
         .setMinValues(1)
         .setMaxValues(6)
         .addOptions(

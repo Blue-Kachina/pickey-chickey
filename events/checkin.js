@@ -33,16 +33,15 @@ module.exports = {
                     // An example of editing an embed that was previously posted
                     // embed.setDescription("Description of that same embed can now be updated like this")
                     // response.edit({embeds:[embed]})
-                    response.pin()
+                    // response.pin()
 
-                    // Let the user select which classes they would like to play as
-                    const row = new ActionRowBuilder()
-                        .addComponents(checkin_components.class_selection_options);
-                    threadchannel.send({
-                        content: `Please select the classes you're willing to play as (in priority sequence).`,
-                        ephemeral: true,
-                        components: [row],
-                    })
+                    // // Let the user select which classes they would like to play as
+                    // const row = new ActionRowBuilder()
+                    //     .addComponents(checkin_components.class_selection_options);
+                    // threadchannel.send({
+                    //     content: `Please select the classes you're willing to play as (in priority sequence).`,
+                    //     components: [row],
+                    // })
                 })
 
 
