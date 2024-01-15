@@ -9,7 +9,7 @@ module.exports = {
     },
 
     channel: function(interaction) {
-        // interaction.client.channels.cache.get(interaction.channelId)
+        return interaction.client.channels.cache.get(interaction.channelId)
     },
 
     original_message: async function(interaction){

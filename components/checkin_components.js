@@ -26,6 +26,16 @@ module.exports = {
             .setFooter({text: 'Why are chickens funny?'})
     },
 
+    class_selection_embed: function (author){
+        let username = author.globalName ?? author.username
+        return new EmbedBuilder()
+            .setColor(0x0099FF)
+            .setTitle(`Class Selection`)
+            .setDescription("Input Pending...")
+            .setAuthor({name: username})
+            .setTimestamp()
+    },
+
     class_selection_options: new StringSelectMenuBuilder()
         .setCustomId('class_selection')
         .setPlaceholder("Choose which classes you're willing to play as")
