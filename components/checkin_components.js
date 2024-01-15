@@ -7,11 +7,6 @@ module.exports = {
     mnc_logo: new AttachmentBuilder('./assets/logo_mnc.png')
         .setName('logo_mnc.png'),
 
-    chickin_button: new ButtonBuilder()
-        .setCustomId('chickin')
-        .setLabel('Toggle Your Checkin Status')
-        .setStyle(ButtonStyle.Primary),
-
     intro_embed: function (author){
         return new EmbedBuilder()
             .setColor(0x0099FF)
