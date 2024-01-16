@@ -14,6 +14,8 @@ const {
 } = require('discord.js');
 
 const common = require("../../helpers/common");
+const draft_components = require("../../components/draft_components");
+const checkin_components = require("../../components/checkin_components");
 
 let eventname = undefined
 
@@ -26,12 +28,16 @@ module.exports = {
 
         let this_channel = common.channel(interaction)
         let author = interaction.client.users.cache.get(interaction.user?.id)
-        console.log('Executing interaction Now')
+
+        const row = new ActionRowBuilder()
+            .addComponents(draft_components.captain_selection_options);
 
         await interaction.reply({
-            content: `Now commencing draft`,
+            content: `Please pick the team captains in order to start this draft.`,
             ephemeral: true,
+            components: [row],
         })
+
 
     },
 };
