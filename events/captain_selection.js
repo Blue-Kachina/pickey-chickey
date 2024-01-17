@@ -21,7 +21,29 @@ module.exports = {
         }).then(response => {
 
             this_channel.send({
-                embeds: [draft_components.roster_a_embed(captain_a),draft_components.roster_b_embed(captain_b)]
+                content: "Team A Roster",
+                embeds: draft_components.empty_team_player_slot_embeds(captain_a)
+            }).then(response => {
+                this_channel.send({
+                    content: "Team B Roster",
+                    embeds: draft_components.empty_team_player_slot_embeds(captain_b)
+                }).then(response => {
+                    const row = new ActionRowBuilder()
+                        .addComponents(draft_components.class_selection_options_for_user(captain_a));
+
+                    this_channel.send({
+                        content: `${captain_a} please select your class.`,
+                        components: [row]
+                    }).then(response => {
+                        const row = new ActionRowBuilder()
+                            .addComponents(draft_components.class_selection_options_for_user(captain_b));
+
+                        this_channel.send({
+                            content: `${captain_b} please select your class.`,
+                            components: [row]
+                        })
+                    })
+                })
             })
         })
 
