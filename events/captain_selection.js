@@ -6,7 +6,7 @@ const common = require("../helpers/common.js");
 const draft_components = require("../components/draft_components");
 
 module.exports = {
-    execute: async function(interaction) {
+    selections_made: async function(interaction) {
 
         let captains = interaction.values
         if (captains?.length !== 2) return interaction.reply({content: 'Bad captains', ephemeral:true})

@@ -8,7 +8,8 @@ const {
     ButtonBuilder,
     ButtonStyle,
     SlashCommandStringOption,
-    ComponentType
+    ComponentType,
+    PermissionsBitField,
 } = require('discord.js');
 
 const checkin_components = require('../../components/checkin_components')
@@ -47,7 +48,7 @@ module.exports = {
                 // components: [action_row],
                 files: [attachment],
             })
-                .then(response => {
+                .then(async response => {
                     // An example of editing an embed that was previously posted
                     // embed.setDescription("Description of that same embed can now be updated like this")
                     // response.edit({embeds:[embed]})
@@ -74,12 +75,18 @@ module.exports = {
                     //     console.log(interaction.customId)
                     // })
 
-                    // Let the user select which classes they would like to play as
+                    // Let every user select which classes they would like to play as
+
+                    const everyone = await threadChannel.guild.roles.everyone
+
+
                     const row = new ActionRowBuilder()
                         .addComponents(checkin_components.class_selection_options);
                     let threadchannel = common.channel(response)
+
+
                     threadchannel.send({
-                        content: `Please select the pros you want to play as (in priority sequence).`,
+                        content: `${everyone} Please select the pros you want to play as (in priority sequence).`,
                         components: [row],
                     })
                         .then(response => {
