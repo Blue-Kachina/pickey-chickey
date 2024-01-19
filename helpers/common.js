@@ -25,7 +25,7 @@ module.exports = {
     checked_in_users_message: async function(interaction) {
         let user_id = interaction.user
         let messages = await interaction.channel.messages.fetch()
-        let found_message = messages.find(message => message.embeds.filter(embed => embed.title="Chickins"))
+        let found_message = messages.find(message => !!message.embeds.find(embed => embed.title==="Chickins"))
 
         if (!!found_message) {
             return found_message
@@ -66,5 +66,20 @@ module.exports = {
         let found_message = messages.find(message => (message.content === 'Team A Roster' || message.content === 'Team B Roster') && message.embeds.find(embed => embed.title === submitter_username))
 
         return found_message?.id ? found_message : null
+    },
+
+    user_is_draftable: async function(interaction, username) {
+        let submitter_username = module.exports.username(interaction)
+        let messages = await interaction.channel.messages.fetch()
+        let found_message = messages.find(message => (message.content === 'Team A Roster' || message.content === 'Team B Roster') && message.embeds.find(embed => embed.title === submitter_username))
+
+        return found_message?.id ? found_message : null
+    },
+
+    list_checked_in_users: async function(interaction) {
+        let message_to_check = module.exports.checked_in_users_message(interaction)
+        if (!message_to_check) return;
+
+        return message_to_check.embeds?.length ? message_to_check.embeds[0]?.fields : null
     },
 }
