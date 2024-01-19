@@ -41,7 +41,7 @@ module.exports = {
             return;
         }
 
-        // Get Checked In Users And Their Classes
+/*        // Get Checked In Users And Their Classes
         let list_users = await common.list_checked_in_users(interaction)
 
         if (!list_users) {
@@ -50,7 +50,13 @@ module.exports = {
                 ephemeral: true,
             })
             return;
-        }
+        }*/
+
+        // Get current teams
+        let team_a = await common.current_team_A(interaction)
+        let team_b = await common.current_team_B(interaction)
+        // ToDo: Check if picked user belongs to one of these teams
+        // ToDo: The picker might soon be updated
 
 
         interaction.reply({

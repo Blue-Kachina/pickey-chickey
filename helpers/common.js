@@ -82,4 +82,32 @@ module.exports = {
 
         return message_to_check.embeds?.length ? message_to_check.embeds[0]?.fields : null
     },
+
+    current_team_A: async function(interaction) {
+        let messages = await interaction.channel.messages.fetch()
+        let roster_messages = messages.find(message => (message.content === 'Team A Roster'))
+        if (!roster_messages) return;
+
+        let mapped_roster = roster_messages.embeds.filter(roster_entry => roster_entry.title !== '-' || roster_entry.description !== '-').map(roster_entry => {
+            if(roster_entry.title !== '-' || roster_entry.description !== '-') {
+                return {'name': roster_entry.title, 'value': roster_entry.description}
+            }
+        })
+
+        return mapped_roster
+    },
+
+    current_team_B: async function(interaction) {
+        let messages = await interaction.channel.messages.fetch()
+        let roster_messages = messages.find(message => (message.content === 'Team B Roster'))
+        if (!roster_messages) return;
+
+        let mapped_roster = roster_messages.embeds.filter(roster_entry => roster_entry.title !== '-' || roster_entry.description !== '-').map(roster_entry => {
+            if(roster_entry.title !== '-' || roster_entry.description !== '-') {
+                return {'name': roster_entry.title, 'value': roster_entry.description}
+            }
+        })
+
+        return mapped_roster
+    },
 }
