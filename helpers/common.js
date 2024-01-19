@@ -77,7 +77,7 @@ module.exports = {
     },
 
     list_checked_in_users: async function(interaction) {
-        let message_to_check = module.exports.checked_in_users_message(interaction)
+        let message_to_check = await module.exports.checked_in_users_message(interaction)
         if (!message_to_check) return;
 
         return message_to_check.embeds?.length ? message_to_check.embeds[0]?.fields : null

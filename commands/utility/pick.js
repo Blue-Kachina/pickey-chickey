@@ -42,14 +42,16 @@ module.exports = {
         }
 
         // Get Checked In Users And Their Classes
-        let message_with_info = await common.checked_in_users_message(interaction)
-        if (!message_with_info) {
+        let list_users = await common.list_checked_in_users(interaction)
+
+        if (!list_users) {
             interaction.reply({
-                content: 'Unable to locate the message with checked-in users.',
+                content: 'Nobody on the checked-in list.',
                 ephemeral: true,
             })
             return;
         }
+
 
         interaction.reply({
             content: `user is captain: ${user_is_captain}`,
