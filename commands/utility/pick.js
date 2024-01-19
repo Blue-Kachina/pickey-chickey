@@ -41,17 +41,6 @@ module.exports = {
             return;
         }
 
-/*        // Get Checked In Users And Their Classes
-        let list_users = await common.list_checked_in_users(interaction)
-
-        if (!list_users) {
-            interaction.reply({
-                content: 'Nobody on the checked-in list.',
-                ephemeral: true,
-            })
-            return;
-        }*/
-
         // Get current teams
         let team_a = await common.current_team_A(interaction)
         let team_b = await common.current_team_B(interaction)
