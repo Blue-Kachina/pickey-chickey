@@ -30,7 +30,41 @@ module.exports = {
         if (!!found_message) {
             return found_message
         }
+    },
 
+    captain_A_username: async function(interaction) {
+        let user_id = interaction.user
+        let messages = await interaction.channel.messages.fetch()
+        let found_message = messages.find(message => message.content === 'Team A Roster')
+        let found_embed = found_message?.embeds[0]
+        let username = found_embed?.title
 
+        return username ?? null
+    },
+
+    captain_B_username: async function(interaction) {
+        let user_id = interaction.user
+        let messages = await interaction.channel.messages.fetch()
+        let found_message = messages.find(message => message.content === 'Team B Roster')
+        let found_embed = found_message?.embeds[0]
+        let username = found_embed?.title
+
+        return username ?? null
+    },
+
+    submitter_is_captain: async function(interaction) {
+        let submitter_username = module.exports.username(interaction)
+        let captain_a_username = await module.exports.captain_A_username(interaction)
+        let captain_b_username = await module.exports.captain_B_username(interaction)
+        let captains = [captain_a_username, captain_b_username]
+        return captains.includes(submitter_username)
+    },
+
+    submitter_roster_message: async function(interaction) {
+        let submitter_username = module.exports.username(interaction)
+        let messages = await interaction.channel.messages.fetch()
+        let found_message = messages.find(message => (message.content === 'Team A Roster' || message.content === 'Team B Roster') && message.embeds.find(embed => embed.title === submitter_username))
+
+        return found_message?.id ? found_message : null
     },
 }
