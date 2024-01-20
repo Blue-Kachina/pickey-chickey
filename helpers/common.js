@@ -23,7 +23,6 @@ module.exports = {
     },
 
     checked_in_users_message: async function(interaction) {
-        let user_id = interaction.user
         let messages = await interaction.channel.messages.fetch()
         let found_message = messages.find(message => !!message.embeds.find(embed => embed.title==="Chickins"))
 
@@ -109,5 +108,15 @@ module.exports = {
         })
 
         return mapped_roster
+    },
+
+    available_players_list: async function(interaction) {
+        let players_list = await module.exports.list_checked_in_users(interaction)
+        let current_team_A = await module.exports.current_team_A(interaction)
+        let current_team_B = await module.exports.current_team_B(interaction)
+        let mapped_team_A = current_team_A.map(team_member => team_member.name)
+        let mapped_team_B = current_team_B.map(team_member => team_member.name)
+        let all_team_member_names = mapped_team_A.concat(mapped_team_B)
+        return players_list.filter(player => !all_team_member_names.includes(player.name))
     },
 }

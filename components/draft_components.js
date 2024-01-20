@@ -2,6 +2,8 @@ const {AttachmentBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, StringSelect
     StringSelectMenuBuilder, UserSelectMenuBuilder
 } = require("discord.js");
 
+const common = require("../helpers/common");
+
 module.exports = {
 
     mnc_logo: new AttachmentBuilder('./assets/logo_mnc.png')
@@ -96,5 +98,24 @@ module.exports = {
                     .setLabel('Tank').setValue('Tank')
                     .setDescription('Modern day grunt.'),
             )
+    },
+
+
+    player_selection_options: async function (interaction){
+        let available_players = await common.available_players_list(interaction)
+        let options = available_players.map(player => {
+            return new StringSelectMenuOptionBuilder().setLabel(player.name).setValue(player.name).setDescription(player.value)
+        })
+
+        if (!options || !options.length) {
+            return null
+        }
+
+        return new StringSelectMenuBuilder()
+            .setCustomId(`pick_player`)
+            .setPlaceholder("Who will you add to your team?")
+            .setMinValues(1)
+            .setMaxValues(1)
+            .addOptions(...options)
     },
 }

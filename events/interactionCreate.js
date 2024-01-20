@@ -2,6 +2,7 @@ const { Events, EmbedBuilder, ActionRowBuilder} = require('discord.js');
 const checkin_events = require('./checkin.js')
 const captain_selection_events = require('../events/captain_selection.js')
 const my_selected_class = require('../events/my_selected_class')
+const pick_player = require('../events/pick_player')
 const draft_begin = require('../commands/utility/draft_begin.js')
 const {captain_selection_options} = require("../components/draft_components");
 
@@ -73,5 +74,8 @@ async function handleSelectMenuInteractions(interaction) {
     }
     else if (menu_submitted === 'my_selected_class') {
         my_selected_class.class_selection(interaction)
+    }
+    else if (menu_submitted === 'pick_player') {
+        pick_player.player_selected(interaction)
     }
 }
